@@ -50,5 +50,6 @@ import time
 start_time = time.time()
 main()
 end_time = time.time()
-print('\n--------\nFINISHED\nTIME:', end_time - start_time, '\n--------') 
+print('\n' + ''.join(['-']*26) + '\nFINISHED\nTIME:', end_time - start_time,
+      '\n' + ''.join(['-']*26))
 input()
