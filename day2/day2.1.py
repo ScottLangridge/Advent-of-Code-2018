@@ -1,13 +1,15 @@
 def main():
-    print('Solution:', solve(get_input())
+    print('Test:', solve(get_input('example.txt')),'\n')
+    print('Solution:', solve(get_input()))
 
-def get_input():
+
+def get_input(filepath = 'input.txt'):
     out = []
-    with open('input.txt', 'r') as f:
+    with open(filepath, 'r') as f:
         raw = f.readlines()
 
     for line in raw:
-        out.append(line.strip("\n"))
+        out.append(line.strip('\n'))
     return out
 
 
@@ -18,18 +20,30 @@ def solve(puzzle_input):
     for code in puzzle_input:
         code = sorted(code)
 
-        if has_triple(code):
-            triples += 1
-        if has_pair(code):
+        if has_count(code, 2):
             pairs += 1
+        if has_count(code, 3):
+            triples += 1
 
     return(pairs * triples)
     
 
-def has_pair(code):
-    pass
+def has_count(code, target_count):
+    current_char = ''
+    current_count = 0
 
-def has_triple(code):
-    pass
+    for char in code:
+        if current_char == char:
+            current_count += 1
+        else:
+            if current_count == target_count:
+                return True
+            else:
+                current_char = char
+                current_count = 1
+                
+    if current_count == target_count: return True
+    else: return False
+
 
 main()
