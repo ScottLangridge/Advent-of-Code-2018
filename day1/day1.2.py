@@ -1,8 +1,9 @@
 def main():
-    print('Test 1:', solve([+1, -1]))
-    print('Test 2:', solve([+3, +3, +4, -2, -4]))
-    print('Test 3:', solve([-6, +3, +8, +5, -6]))
-    print('Test 4:', solve([+7, +7, -2, -7, -4]))
+##    print('Test 1:', solve([+1, -1]))
+##    print('Test 2:', solve([+3, +3, +4, -2, -4]))
+##    print('Test 3:', solve([-6, +3, +8, +5, -6]))
+##    print('Test 4:', solve([+7, +7, -2, -7, -4]))
+    print('Calculating, please wait...')
     print('\nSolution:', solve(get_input()))
 
 
