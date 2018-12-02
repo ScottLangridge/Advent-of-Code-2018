@@ -1,7 +1,9 @@
 def main():
-    print('Test:', solve(get_input('example2.txt')),'\n')
-    print('Solution:', solve(get_input()))
-
+##    solution = solve(get_input('example2.txt'), 0, len(get_input('example2.txt')))
+##    print('Test:', get_matching(solution[0], solution[1]),'\n')
+    solution = solve(get_input('input.txt'), 0, len(get_input('input.txt')))
+    print('Solution:', get_matching(solution[0], solution[1]))
+    print('finished')
 
 def get_input(filepath = 'input.txt'):
     out = []
@@ -13,44 +15,30 @@ def get_input(filepath = 'input.txt'):
     return out
 
 
-def solve(puzzle_input):
-    assert codes_are_unique_without_regard_to_letter_order(puzzle_input)
+def solve(puzzle_input, checked, total):
+    print(checked, 'of', total)
+    testing = puzzle_input[0]
+    for code in puzzle_input[1:]:
+        if codes_match(testing, code):
+            return (testing, code)
+    return(solve(puzzle_input[1:], checked + 1, total))           
 
-    sorted_codes = []
-    for code in puzzle_input:
-        sorted_codes.append(sorted(code))
-    sorted_codes.sort()
 
-    print (sorted_codes)
-    input()
-
-def break_codes_into_groups(codes):
-    print(codes)
-    current = ''
-    groups = []
-    for key in (codes):
-        if codes[key][0] == current:
-            groups[-1][key] = codes[key][1:]
-        else:
-            groups.append({key:codes[key][1:]})
-            current = codes[key][0]
-
-    print(groups)
-    input()
-    
-
-def codes_are_unique_without_regard_to_letter_order(input_codes):
-    last_code = ''
-    codes = []
-    for code in input_codes:
-        codes.append(sorted(code))
-    codes.sort()
-    for code in codes:
-        if last_code == code:
-            return False
-        else:
-            last_code = code
+def codes_match(code1, code2):
+    differences = 0
+    for i in range(len(code1)):
+        if code1[i] != code2[i]:
+            differences += 1
+            if differences > 1:
+                return False
     return True
 
+
+def get_matching(code1, code2):
+    out = ''
+    for char in code1:
+        if char in code2:
+            out = out + char
+    return out        
 
 main()
