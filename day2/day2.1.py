@@ -1,5 +1,5 @@
 def main():
-    solve(get_input())
+    print('Solution:', solve(get_input())
 
 def get_input():
     out = []
@@ -17,12 +17,14 @@ def solve(puzzle_input):
     
     for code in puzzle_input:
         code = sorted(code)
-        triple = has_triple(code)
-        if triple != False:
-            code = remove_element(code, triple)
-            
-            
-            
+
+        if has_triple(code):
+            triples += 1
+        if has_pair(code):
+            pairs += 1
+
+    return(pairs * triples)
+    
 
 def has_pair(code):
     pass
