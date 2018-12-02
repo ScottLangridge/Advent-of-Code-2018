@@ -1,9 +1,12 @@
+import time
+
+
 def main():
-##    print('Test:', solve(get_input('example1.txt')),'\n')
+    # print('Test:', solve(get_input('example1.txt')),'\n')
     print('Solution:', solve(get_input()))
 
 
-def get_input(filepath = 'input.txt'):
+def get_input(filepath='input.txt'):
     out = []
     with open(filepath, 'r') as f:
         raw = f.readlines()
@@ -16,7 +19,7 @@ def get_input(filepath = 'input.txt'):
 def solve(puzzle_input):
     pairs = 0
     triples = 0
-    
+
     for code in puzzle_input:
         code = sorted(code)
 
@@ -25,8 +28,8 @@ def solve(puzzle_input):
         if has_count(code, 3):
             triples += 1
 
-    return(pairs * triples)
-    
+    return pairs * triples
+
 
 def has_count(code, target_count):
     current_char = ''
@@ -41,15 +44,16 @@ def has_count(code, target_count):
             else:
                 current_char = char
                 current_count = 1
-                
-    if current_count == target_count: return True
-    else: return False
+
+    if current_count == target_count:
+        return True
+    else:
+        return False
 
 
-import time
 start_time = time.time()
 main()
 end_time = time.time()
-print('\n' + ''.join(['-']*26) + '\nFINISHED\nTIME:', end_time - start_time,
-      '\n' + ''.join(['-']*26))
+print('\n' + ''.join(['-'] * 26) + '\nFINISHED\nTIME:', end_time - start_time,
+      '\n' + ''.join(['-'] * 26))
 input()
