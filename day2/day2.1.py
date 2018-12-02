@@ -1,5 +1,5 @@
 def main():
-    print('Test:', solve(get_input('example1.txt')),'\n')
+##    print('Test:', solve(get_input('example1.txt')),'\n')
     print('Solution:', solve(get_input()))
 
 
@@ -46,4 +46,9 @@ def has_count(code, target_count):
     else: return False
 
 
+import time
+start_time = time.time()
 main()
+end_time = time.time()
+print('\n--------\nFINISHED\nTIME:', end_time - start_time, '\n--------') 
+input()

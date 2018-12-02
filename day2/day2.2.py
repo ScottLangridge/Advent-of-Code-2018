@@ -3,7 +3,6 @@ def main():
 ##    print('Test:', get_matching(solution[0], solution[1]),'\n')
     solution = solve(get_input('input.txt'), 0, len(get_input('input.txt')))
     print('Solution:', get_matching(solution[0], solution[1]))
-    print('finished')
 
 def get_input(filepath = 'input.txt'):
     out = []
@@ -16,7 +15,7 @@ def get_input(filepath = 'input.txt'):
 
 
 def solve(puzzle_input, checked, total):
-    print(checked, 'of', total)
+##    print(checked, 'of', total)
     testing = puzzle_input[0]
     for code in puzzle_input[1:]:
         if codes_match(testing, code):
@@ -41,4 +40,10 @@ def get_matching(code1, code2):
             out = out + char
     return out        
 
+
+import time
+start_time = time.time()
 main()
+end_time = time.time()
+print('\n--------\nFINISHED\nTIME:', end_time - start_time, '\n--------') 
+input()

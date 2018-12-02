@@ -1,7 +1,7 @@
 def main():
-    print('Test 1:', solve([1,1,1]))
-    print('Test 2:', solve([1,1,-2]))
-    print('Test 3:', solve([-1,-2,-3]))
+##    print('Test 1:', solve([1,1,1]))
+##    print('Test 2:', solve([1,1,-2]))
+##    print('Test 3:', solve([-1,-2,-3]))
     print('\nSolution:', solve(get_input()))
 
 def get_input():
@@ -18,4 +18,9 @@ def solve(puzzle_input):
     answer = sum(puzzle_input)
     return answer
 
+import time
+start_time = time.time()
 main()
+end_time = time.time()
+print('--------\nFINISHED\nTIME:', end_time - start_time,'\n--------')
+input()

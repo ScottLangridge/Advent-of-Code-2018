@@ -32,4 +32,9 @@ def solve(puzzle_input):
                 found_sums.append(current_sum)
 
 
+import time
+start_time = time.time()
 main()
+end_time = time.time()
+print('\n--------\nFINISHED\nTIME:', end_time - start_time, '\n--------') 
+input()
