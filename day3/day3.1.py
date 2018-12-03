@@ -1,11 +1,10 @@
-import sys
 import time
 
 from day3.Claim import Claim
 
 
 def main():
-    print('Test:', solve(get_input('example1.txt')), '\n')
+    # print('Test:', solve(get_input('example1.txt')), '\n')
     print('Solution:', solve(get_input()))
 
 
