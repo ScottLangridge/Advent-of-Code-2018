@@ -1,5 +1,7 @@
 import time
 
+from day3.Claim import Claim
+
 
 def main():
     print('Test:', solve(get_input('example1.txt')), '\n')
@@ -17,7 +19,10 @@ def get_input(filepath='input.txt'):
 
 
 def solve(puzzle_input):
-    pass
+    claims = []
+    for claim_string in puzzle_input:
+        claims.append(Claim(claim_string))
+
 
 
 start_time = time.time()
