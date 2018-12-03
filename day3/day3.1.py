@@ -5,15 +5,13 @@ from day3.Claim import Claim
 
 
 def main():
-    # print('Test 1:', solve([1,1,1]))
-    # print('Test 2:', solve([1,1,-2]))
-    # print('Test 3:', solve([-1,-2,-3]))
+    print('Test 1:', solve(get_input('example.txt')))
     print('\nSolution:', solve(get_input()))
 
 
-def get_input():
+def get_input(filename='input.txt'):
     out = []
-    with open('input.txt', 'r') as f:
+    with open(filename, 'r') as f:
         raw = f.readlines()
 
     for line in raw:
@@ -23,8 +21,21 @@ def get_input():
 
 def solve(puzzle_input):
     claims = []
-    for claim_string in get_input():
+    for claim_string in puzzle_input:
         claims.append(Claim(claim_string))
+
+    return count_overlaps(claims)
+
+
+def count_overlaps(claims):
+    if len(claims) == 1:
+        return 0
+
+    overlap = 0
+    checking = claims[0]
+    for claim in claims[1:]:
+        overlap += checking.claim_overlap(claim)
+    return overlap + count_overlaps(claims[1:])
 
 
 start_time = time.time()
