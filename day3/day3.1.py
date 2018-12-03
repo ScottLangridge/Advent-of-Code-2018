@@ -5,7 +5,7 @@ from day3.Claim import Claim
 
 
 def main():
-    print('Test 1:', solve(get_input('example.txt')))
+    # print('Test 1:', solve(get_input('example.txt')))
     print('\nSolution:', solve(get_input()))
 
 
@@ -24,7 +24,17 @@ def solve(puzzle_input):
     for claim_string in puzzle_input:
         claims.append(Claim(claim_string))
 
-    return count_overlaps(claims)
+    overlaps = 0
+    for x in range(1000):
+        print('Completion: ' + str(100 * x / 1000) + '%')
+        for y in range(1000):
+            contains_point = 0
+            for claim in claims:
+                if claim.contains_point((x, y)):
+                    contains_point += 1
+            if contains_point > 1:
+                overlaps += 1
+    return overlaps
 
 
 def count_overlaps(claims):
