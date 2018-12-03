@@ -30,10 +30,27 @@ def solve(puzzle_input):
         for i in puzzle_input:
             current_sum += i
 
-            if current_sum in found_sums:
+            search = binary_search(found_sums, current_sum)
+            if search[0]:
                 return current_sum
             else:
-                found_sums.append(current_sum)
+                found_sums.insert(search[1], current_sum)
+
+
+def binary_search(list, element):
+    if len(list) == 0:
+        return False, 0
+
+    pointer = int((len(list) - 1) / 2)
+    midpoint = list[pointer]
+    if midpoint == element:
+        return (True, pointer)
+    elif midpoint < element:
+        out = binary_search(list[pointer + 1:], element)
+        return (out[0], pointer + 1 + out[1])
+    elif midpoint > element:
+        out = binary_search(list[:pointer], element)
+        return out
 
 
 start_time = time.time()
