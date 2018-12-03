@@ -27,15 +27,13 @@ def solve(puzzle_input):
 
 
 def get_overlap(claims):
-    if len(claims) == 0:
-        return 0
-
-    testing = claims[0]
     overlap = 0
-    for claim in claims[1:]:
-        if claims_overlap(testing, claim):
-            overlap += measure_overlap(testing, claim)
-    return overlap + get_overlap(claims[1:])
+    for i in range(len(claims)):
+        testing = claims[i]
+        for claim in claims[i + 1:]:
+            if claims_overlap(testing, claim):
+                overlap += measure_overlap(testing, claim)
+    return overlap
 
 
 def claims_overlap(c1, c2):
@@ -69,14 +67,13 @@ def measure_overlap(c1, c2):
     while x <= end_x:
         y = start_y
         while y <= end_y:
-            if c1.point_is_inside_claim((x,y)) and c2.point_is_inside_claim((x,y)):
+            if c1.point_is_inside_claim((x, y)) and c2.point_is_inside_claim((x, y)):
                 overlap += 1
             y += 1
         x += 1
     return overlap
 
 
-sys.setrecursionlimit(1500)
 start_time = time.time()
 main()
 end_time = time.time()
