@@ -27,14 +27,8 @@ def solve(puzzle_input):
         claims.append(Claim(claim_string))
 
 
-
-
-
-
-
-
 start_time = time.time()
 main()
 end_time = time.time()
-print('\n' + ''.join(['-']*26) + '\nFINISHED\nTIME:', end_time - start_time, '\n' + ''.join(['-']*26))
+print('\n' + ''.join(['-'] * 26) + '\nFINISHED\nTIME:', end_time - start_time, '\n' + ''.join(['-'] * 26))
 input()
