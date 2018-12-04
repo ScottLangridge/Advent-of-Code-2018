@@ -22,7 +22,19 @@ def solve(puzzle_input):
 
 
 def debug():
-    pass
+    raw = get_input('rand_example1.txt')
+    parse_input(raw)
+
+
+def parse_input(puzzle_input):
+    records = []
+    for line in puzzle_input:
+        line = line[1:]
+        split_line = line.split('] ')
+        records.append((split_line[0], split_line[1]))
+
+    for rec in records:
+        print(rec)
 
 
 def scramble_example():
