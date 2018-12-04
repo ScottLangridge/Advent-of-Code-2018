@@ -29,12 +29,20 @@ def debug():
 def parse_input(puzzle_input):
     records = []
     for line in puzzle_input:
+        # Split into datetime and string
         line = line[1:]
         split_line = line.split('] ')
-        records.append((split_line[0], split_line[1]))
+        records.append([split_line[0], split_line[1]])
 
-    for rec in records:
-        print(rec)
+    records.sort()
+
+    for line in records:
+        print(line)
+
+
+
+
+
 
 
 def scramble_example():
