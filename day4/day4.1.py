@@ -1,4 +1,5 @@
 import time
+from collections import defaultdict
 from random import shuffle
 
 
@@ -18,12 +19,30 @@ def get_input(filepath='input.txt'):
 
 
 def solve(puzzle_input):
-    pass
+    log = parse_input(puzzle_input)
+    guards = defaultdict(lambda : 0)
+
+    for record in log:
+        action = record[1]
+        datetime = record[0]
+        if action[0] == 'G':
+            current_guard = action[7:9]
+        if action == 'falls asleep':
+            sleep_start = datetime[-5:]
+        if action == 'wakes up':
+            sleep_end = datetime[-5:]
+            guards[current_guard] += time_between(sleep_start, sleep_end)
+
+
+def time_between(start, end):
+    start = start.split(':')
+    end = end.split(':')
+    print(start)
 
 
 def debug():
-    raw = get_input('rand_example1.txt')
-    parse_input(raw)
+    solve(get_input('rand_example1.txt'))
+    solve(get_input('input.txt'))
 
 
 def parse_input(puzzle_input):
@@ -33,11 +52,8 @@ def parse_input(puzzle_input):
         line = line[1:]
         split_line = line.split('] ')
         records.append([split_line[0], split_line[1]])
-
     records.sort()
-
-    for line in records:
-        print(line)
+    return records
 
 
 
