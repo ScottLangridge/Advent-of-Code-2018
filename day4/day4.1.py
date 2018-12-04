@@ -5,7 +5,7 @@ from random import shuffle
 
 def main():
     print('Test:', solve(get_input('example1.txt')), '\n')
-    # print('Solution:', solve(get_input()))
+    print('Solution:', solve(get_input()))
     pass
 
 
@@ -30,7 +30,7 @@ def solve(puzzle_input):
         action = record[1]
         datetime = record[0]
         if action[0] == 'G':
-            current_guard = action[7:9]
+            current_guard = guard_change_get_id(record)
         if action == 'falls asleep':
             sleep_start = datetime[-5:]
         if action == 'wakes up':
@@ -110,11 +110,6 @@ def time_between(start, end):
     return diff
 
 
-def debug():
-    print(solve(get_input('rand_example1.txt')))
-    # solve(get_input('input.txt'))
-
-
 def parse_input(puzzle_input):
     records = []
     for line in puzzle_input:
@@ -135,8 +130,7 @@ def scramble_example():
 
 
 start_time = time.time()
-debug()
-# main()
+main()
 end_time = time.time()
 print('\n' + ''.join(['-'] * 26) + '\nFINISHED\nTIME:', end_time - start_time,
       '\n' + ''.join(['-'] * 26))
