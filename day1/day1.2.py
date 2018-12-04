@@ -1,4 +1,5 @@
 import time
+from collections import defaultdict
 
 
 def main():
@@ -22,35 +23,15 @@ def get_input():
 
 def solve(puzzle_input):
     current_sum = 0
-    found_sums = [0]
-    loops = 0
+    found_sums = defaultdict(lambda : 0)
 
     while True:
-        loops += 1
         for i in puzzle_input:
             current_sum += i
+            found_sums[current_sum] += 1
 
-            search = binary_search(found_sums, current_sum)
-            if search[0]:
+            if found_sums[current_sum] == 2:
                 return current_sum
-            else:
-                found_sums.insert(search[1], current_sum)
-
-
-def binary_search(list, element):
-    if len(list) == 0:
-        return False, 0
-
-    pointer = int((len(list) - 1) / 2)
-    midpoint = list[pointer]
-    if midpoint == element:
-        return (True, pointer)
-    elif midpoint < element:
-        out = binary_search(list[pointer + 1:], element)
-        return (out[0], pointer + 1 + out[1])
-    elif midpoint > element:
-        out = binary_search(list[:pointer], element)
-        return out
 
 
 start_time = time.time()
