@@ -6,6 +6,7 @@ def main():
     # print('Solution:', solve(get_input()))
     pass
 
+
 def get_input(filepath='input.txt'):
     out = []
     with open(filepath, 'r') as f:

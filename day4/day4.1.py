@@ -74,10 +74,10 @@ def solve(puzzle_input):
 
     longest_sleep = 0
     sleepiest_min = None
-    for min in sleep_count_by_min.keys():
-        if sleep_count_by_min[min] > longest_sleep:
-            sleepiest_min = min
-            longest_sleep = sleep_count_by_min[min]
+    for minute in sleep_count_by_min.keys():
+        if sleep_count_by_min[minute] > longest_sleep:
+            sleepiest_min = minute
+            longest_sleep = sleep_count_by_min[minute]
 
     return int(sleepiest_guard) * sleepiest_min
 

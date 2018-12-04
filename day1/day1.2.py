@@ -23,7 +23,7 @@ def get_input():
 
 def solve(puzzle_input):
     current_sum = 0
-    found_sums = defaultdict(lambda : 0)
+    found_sums = defaultdict(lambda: 0)
 
     while True:
         for i in puzzle_input:
