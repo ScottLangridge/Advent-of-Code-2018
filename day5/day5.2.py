@@ -52,6 +52,8 @@ def solve(puzzle_input):
                     del puzzle_input[i]
                     del puzzle_input[i]
                     changed = True
+                    if i > 0:
+                        i -= 1
                 else:
                     i += 1
 
