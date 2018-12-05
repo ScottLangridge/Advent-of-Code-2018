@@ -3,7 +3,7 @@ from collections import defaultdict
 
 
 def main():
-    print('Test:', solve(get_input('example1.txt')), '\n\n')
+    # print('Test:', solve(get_input('example1.txt')), '\n\n')
     print('Solution:', solve(get_input()))
     pass
 
