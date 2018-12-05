@@ -24,20 +24,15 @@ def solve(puzzle_input):
         pairs[chr(ord('a') + i)] = chr(ord('a') + i).upper()
         pairs[chr(ord('a') + i).upper()] = chr(ord('a') + i)
 
-    changed = True
-
-    while changed:
-        changed = False
-        i = 0
-        while i < len(puzzle_input) - 1:
-            if puzzle_input[i + 1] == pairs[puzzle_input[i]]:
-                del puzzle_input[i]
-                del puzzle_input[i]
-                if i > 0:
-                    i -= 1
-                changed = True
-            else:
-                i += 1
+    i = 0
+    while i < len(puzzle_input) - 1:
+        if puzzle_input[i + 1] == pairs[puzzle_input[i]]:
+            del puzzle_input[i]
+            del puzzle_input[i]
+            if i > 0:
+                i -= 1
+        else:
+            i += 1
 
     return len(puzzle_input)
 

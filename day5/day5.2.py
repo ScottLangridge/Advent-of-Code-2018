@@ -43,19 +43,15 @@ def solve(puzzle_input):
                 puzzle_input.remove(unit.upper())
                 removed = True
 
-        changed = True
-        while changed:
-            changed = False
-            i = 0
-            while i < len(puzzle_input) - 1:
-                if puzzle_input[i + 1] == pairs[puzzle_input[i]]:
-                    del puzzle_input[i]
-                    del puzzle_input[i]
-                    changed = True
-                    if i > 0:
-                        i -= 1
-                else:
-                    i += 1
+        i = 0
+        while i < len(puzzle_input) - 1:
+            if puzzle_input[i + 1] == pairs[puzzle_input[i]]:
+                del puzzle_input[i]
+                del puzzle_input[i]
+                if i > 0:
+                    i -= 1
+            else:
+                i += 1
 
         len_after_unit[unit] = len(puzzle_input)
 
