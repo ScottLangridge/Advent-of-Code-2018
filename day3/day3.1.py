@@ -4,7 +4,7 @@ from day3.Claim import Claim
 
 
 def main():
-    # print('Test 1:', solve(get_input('example.txt')))
+    # print('Test 1:', solve(get_input('example1.txt')))
     print('\nSolution:', solve(get_input()))
 
 

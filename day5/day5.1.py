@@ -2,23 +2,43 @@ import time
 
 
 def main():
-    # print('Test:', solve(get_input('example1.txt')),'\n')
-    # print('Solution:', solve(get_input()))
+    print('Test:', solve(get_input('example1.txt')),'\n')
+    print('Solution:', solve(get_input()))
     pass
 
 
 def get_input(filepath='input.txt'):
     out = []
     with open(filepath, 'r') as f:
-        raw = f.readlines()
+        raw = f.readline()
 
-    for line in raw:
-        out.append(line.strip('\n'))
+    for char in raw:
+        out.append(char)
+
     return out
 
 
 def solve(puzzle_input):
-    pass
+
+    pairs = {}
+    for i in range(26):
+        pairs[chr(ord('a') + i)] = chr(ord('a') + i).upper()
+        pairs[chr(ord('a') + i).upper()] = chr(ord('a') + i)
+
+    changed = True
+    while changed:
+        changed = False
+        i = 0
+        while i < len(puzzle_input) - 1:
+            if puzzle_input[i + 1] == pairs[puzzle_input[i]]:
+                del puzzle_input[i]
+                del puzzle_input[i]
+                changed = True
+            else:
+                i += 1
+
+    return len(puzzle_input)
+
 
 
 start_time = time.time()
