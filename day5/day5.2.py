@@ -3,7 +3,7 @@ from collections import defaultdict
 
 
 def main():
-    print('Test:', solve(get_input('example1.txt')),'\n')
+    print('Test:', solve(get_input('example1.txt')), '\n')
     print('Solution:', solve(get_input()))
     pass
 
@@ -29,7 +29,6 @@ def solve(puzzle_input):
         pairs[chr(ord('a') + i).upper()] = chr(ord('a') + i)
 
     for unit in len_after_unit.keys():
-        print(unit)
         puzzle_input = original_input[:]
         removed = True
         while removed:
@@ -55,9 +54,7 @@ def solve(puzzle_input):
 
         len_after_unit[unit] = len(puzzle_input)
 
-    print(len_after_unit.values())
     return min(len_after_unit.values())
-
 
 
 start_time = time.time()

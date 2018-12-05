@@ -2,7 +2,7 @@ import time
 
 
 def main():
-    print('Test:', solve(get_input('example1.txt')),'\n')
+    print('Test:', solve(get_input('example1.txt')), '\n')
     print('Solution:', solve(get_input()))
     pass
 
@@ -19,7 +19,6 @@ def get_input(filepath='input.txt'):
 
 
 def solve(puzzle_input):
-
     pairs = {}
     for i in range(26):
         pairs[chr(ord('a') + i)] = chr(ord('a') + i).upper()
@@ -38,7 +37,6 @@ def solve(puzzle_input):
                 i += 1
 
     return len(puzzle_input)
-
 
 
 start_time = time.time()
