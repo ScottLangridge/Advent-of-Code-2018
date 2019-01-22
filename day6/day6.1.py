@@ -2,7 +2,7 @@ import time
 
 
 def main():
-    print('Test:', solve(get_input('example1.txt')), '\n')
+    #print('Test:', solve(get_input('example1.txt')), '\n')
     print('Solution:', solve(get_input()))
     pass
 
@@ -36,6 +36,8 @@ def solve(puzzle_input):
             x += 1
         y += 1
 
+    #save(calculation_area)
+
     infinites = []
     for i in calculation_area[0]:
         if i not in infinites:
@@ -43,21 +45,46 @@ def solve(puzzle_input):
     for i in calculation_area[-1]:
         if i not in infinites:
             infinites.append(i)
-    for i in range(len(calculation_area)):
-        if calculation_area[i][0] not in infinites:
-            infinites.append(i)
-        if calculation_area[i][-1] not in infinites:
-            infinites.append(i)
+    for row in calculation_area:
+        if row[0] not in infinites:
+            infinites.append(row[0])
+        if row[-1] not in infinites:
+            infinites.append(row[-1])
 
     if -1 in infinites:
         infinites.remove(-1)
 
-    valid_area_sizes = []
+    max_val = 0
+    max_count = 0
     for i in range(len(puzzle_input)):
         if i not in infinites:
-            valid_area_sizes.append(area_count[i])
+            count = 0
+            for row in calculation_area:
+                for val in row:
+                    if val == i:
+                        count += 1
+            if count > max_count:
+                max_val = i
+                max_count = count
 
-    return max(valid_area_sizes)
+    return max_count
+
+
+
+def save(file):
+    i = 0
+    with open('csv.csv', 'w') as f:
+        lines = []
+        for row in file:
+            print('saving', i, 'of', len(file))
+            i += 1
+            line = ''
+            for val in row:
+                line = line + str(val) + ','
+            lines.append(line[:-1] + "\n")
+        f.writelines(lines)
+
+
 
 
 def get_dist(x1, y1, x2, y2):
