@@ -3,8 +3,8 @@ from collections import defaultdict
 
 
 def main():
-    print('Test:', solve(get_input('example1.txt')), '\n')
-    # print('Solution:', solve(get_input()))
+    # print('Test:', solve(get_input('example1.txt')), '\n')
+    print('Solution:', solve(get_input()))
     pass
 
 
@@ -22,7 +22,7 @@ def get_input(filepath='input.txt'):
 def solve(puzzle_input):
     final_order = ''
     dependants = {}
-    for i in range(65, 71):
+    for i in range(65, 91):
         dependants[chr(i)] = []
     for pair in puzzle_input:
         dependants[pair[1]].append(pair[0])
