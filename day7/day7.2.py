@@ -1,5 +1,4 @@
 import time
-from collections import defaultdict
 
 
 def main():
@@ -23,6 +22,7 @@ def solve(puzzle_input):
     workers = [None] * 5
     # Task = [ID, Dependants, work]
     tasks = {}
+    elapsed = 0
 
     for entry in puzzle_input:
         if entry[0] in tasks.keys():
@@ -35,32 +35,40 @@ def solve(puzzle_input):
             tasks[chr(i)] = [[], i - 4]
 
     while len(tasks) > 0:
+        print(tasks)
         ready_queue = []
         for task in tasks.keys():
             if len(tasks[task][0]) == 0:
                 ready_queue.append(task)
-       
+
         while worker_free(workers) and len(ready_queue) > 0:
             workers = assign_task(workers, ready_queue[0], tasks)
             del ready_queue[0]
 
-        workers = run_work(workers)
-        for i in range(tasks):
-            if tasks[i][0] == next_task[0]:
-                del tasks[i]
-         
+
+        result = run_work(workers)
+        elapsed += result[1]
+        for worker in result[0]:
+            if worker[1] == 0:
+                for task in tasks:
+
+
+    return elapsed
+
+
+
 
 def run_work(workers):
     elapsed = 0
     task_finished = False
     while not task_finished:
-        print(worker)
         for worker in workers:
-            if worker[1] <= 0: 
-                task_finsihed = True
-        print(workers)
+            if worker is not None:
+                worker[1] -= 1
+                if worker[1] == 0:
+                    task_finished = True
         elapsed += 1
-    return workers 
+    return workers, elapsed
 
 
 def worker_free(workers):
@@ -84,7 +92,7 @@ def elapse_time(workers, time):
         workers[i][2] -= time
         if workers[i][2] < 0:
             raise Exception('Elapsed too much time, worker was allowed to idle.')
-    return workers 
+    return workers
 
 
 def get_soonest_finsihed(workers):
