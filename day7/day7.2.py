@@ -2,8 +2,8 @@ import time
 
 
 def main():
-    # print('Test:', solve(get_input('example1.txt')), '\n')
-    print('Solution:', solve(get_input()))
+    print('Test:', solve(get_input('example1.txt')), '\n')
+    # print('Solution:', solve(get_input()))
     pass
 
 
@@ -14,7 +14,7 @@ def get_input(filepath='input.txt'):
 
     for line in raw:
         line = line.strip('\n').split(' ')
-        out.append([line[7], line[1], ord(line[1]) - 4])
+        out.append([line[7], line[1], ord(line[7]) - 4])
     return out
 
 
@@ -24,38 +24,55 @@ def solve(puzzle_input):
     tasks = {}
     elapsed = 0
 
+    # Generate task dict
     for entry in puzzle_input:
         if entry[0] in tasks.keys():
             tasks[entry[0]][0].append(entry[1])
         else:
             tasks[entry[0]] = [[entry[1]], entry[2]]
-
     for i in range(65, 91):
         if chr(i) not in tasks.keys():
             tasks[chr(i)] = [[], i - 4]
 
+    # Main loop
     while len(tasks) > 0:
-        print(tasks)
+        # Generate ready queue
         ready_queue = []
         for task in tasks.keys():
             if len(tasks[task][0]) == 0:
                 ready_queue.append(task)
 
+        # Assign workers
         while worker_free(workers) and len(ready_queue) > 0:
-            workers = assign_task(workers, ready_queue[0], tasks)
+            task_already_assigned = False
+            for worker in workers:
+                if worker is not None and worker[0] == ready_queue[0]:
+                    task_already_assigned = True
+                    break
+            if not task_already_assigned:
+                workers = assign_task(workers, ready_queue[0], tasks)
             del ready_queue[0]
 
-
+        # Simulate work
         result = run_work(workers)
+        workers = result[0]
         elapsed += result[1]
-        for worker in result[0]:
-            if worker[1] == 0:
-                for task in tasks:
 
+        # Check for completed tasks
+        deleted = []
+        for worker in workers:
+            if worker is not None and worker[1] == 0:
+                tasks.pop(worker[0])
+                for task in tasks.keys():
+                    if worker[0] in tasks[task][0]:
+                        tasks[task][0].remove(worker[0])
+                deleted.append(worker)
+        for d in deleted:
+            workers.remove(d)
+        for i in range(len(deleted)):
+            workers.append(None)
 
     return elapsed
-
-
 
 
 def run_work(workers):
@@ -81,7 +98,7 @@ def worker_free(workers):
 def assign_task(workers, task, tasks):
     i = 0
     while i < len(workers):
-        if workers[i] == None:
+        if workers[i] is None:
             workers[i] = [task, tasks[task][1]]
             return workers
         i += 1
