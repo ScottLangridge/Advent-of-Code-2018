@@ -2,7 +2,7 @@ import time
 
 
 def main():
-    #print('Test:', solve(get_input('example1.txt')), '\n')
+    # print('Test:', solve(get_input('example1.txt')), '\n')
     print('Solution:', solve(get_input()))
     pass
 
@@ -19,25 +19,23 @@ def get_input(filepath='input.txt'):
 
 
 def solve(puzzle_input):
-    calculation_extremes = get_margin_extremes(find_extremes(puzzle_input))
+    calculation_extremes = find_extremes(puzzle_input)
     calculation_area = []
     area_count = [0] * len(puzzle_input)
 
+    # For each cell
     y = calculation_extremes[2]
     while y <= calculation_extremes[3]:
         calculation_area.append([])
         x = calculation_extremes[0]
         while x <= calculation_extremes[1]:
-
+            # Get closest, write it in and add one to that numbers count
             closest = get_closest(x, y, puzzle_input)
             calculation_area[-1].append(closest)
-            area_count[closest] += 1
-
             x += 1
         y += 1
 
-    #save(calculation_area)
-
+    # Find values which are infinite
     infinites = []
     for i in calculation_area[0]:
         if i not in infinites:
@@ -50,11 +48,9 @@ def solve(puzzle_input):
             infinites.append(row[0])
         if row[-1] not in infinites:
             infinites.append(row[-1])
-
     if -1 in infinites:
         infinites.remove(-1)
 
-    max_val = 0
     max_count = 0
     for i in range(len(puzzle_input)):
         if i not in infinites:
@@ -64,27 +60,8 @@ def solve(puzzle_input):
                     if val == i:
                         count += 1
             if count > max_count:
-                max_val = i
                 max_count = count
-
     return max_count
-
-
-
-def save(file):
-    i = 0
-    with open('csv.csv', 'w') as f:
-        lines = []
-        for row in file:
-            print('saving', i, 'of', len(file))
-            i += 1
-            line = ''
-            for val in row:
-                line = line + str(val) + ','
-            lines.append(line[:-1] + "\n")
-        f.writelines(lines)
-
-
 
 
 def get_dist(x1, y1, x2, y2):
@@ -120,10 +97,10 @@ def find_extremes(puzzle_input):
         x = coord[0]
         y = coord[1]
 
-        if x < low_x: low_x = x
-        if y < low_y: low_y = y
-        if x > high_x: high_x = x
-        if x > high_y: high_y = y
+        if x < low_x: low_x = x - 1
+        if y < low_y: low_y = y - 1
+        if x > high_x: high_x = x + 1
+        if x > high_y: high_y = y + 1
 
     return [low_x, high_x, low_y, high_y]
 
