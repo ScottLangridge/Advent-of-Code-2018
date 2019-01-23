@@ -16,22 +16,33 @@ def get_input(filepath='input.txt'):
     return out
 
 
-def get_meta_sum(puzzle_input):
+def get_node_tree(puzzle_input):
+    node = ([], [])
     i = 0
-    running_total = 0
     for branch in range(puzzle_input[0]):
         i += 2
-        result = get_meta_sum(puzzle_input[i:])
-        running_total += result[0]
+        result = get_node_tree(puzzle_input[i:])
+        node[0].append(result[0])
         i += result[1]
     for meta in range(puzzle_input[1]):
-        running_total += puzzle_input[i + 2]
+        node[1].append(puzzle_input[i + 2])
         i += 1
-    return running_total, i
+    return node, i
+
+
+def get_node_val(node):
+    if len(node[0]) == 0:
+        return sum(node[1])
+    else:
+        total = 0
+        for meta in node[1]:
+            if 0 < meta <= len(node[0]):
+                total += get_node_val(node[0][meta - 1])
+        return total
 
 
 def solve(puzzle_input):
-    return get_meta_sum(puzzle_input)[0]
+    return get_node_val(get_node_tree(puzzle_input)[0])
 
 
 start_time = time.time()
