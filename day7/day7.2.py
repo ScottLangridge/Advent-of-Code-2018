@@ -2,8 +2,8 @@ import time
 
 
 def main():
-    print('Test:', solve(get_input('example1.txt')), '\n')
-    # print('Solution:', solve(get_input()))
+    # print('Test:', solve(get_input('example1.txt')), '\n')
+    print('Solution:', solve(get_input()))
     pass
 
 
