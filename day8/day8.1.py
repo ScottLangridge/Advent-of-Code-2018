@@ -1,10 +1,10 @@
-import sys
 import time
 
 
 def main():
-    print('Test:', solve(get_input('example1.txt')), '\n')
-    # print('Solution:', solve(get_input()))
+    # print('Test:', solve(get_input('example1.txt')), '\n')
+    # print('Test:', solve(get_input('example2.txt')), '\n')
+    print('Solution:', solve(get_input()))
     pass
 
 
@@ -19,32 +19,29 @@ def get_input(filepath='input.txt'):
 # Node = [[Children], [Metadata]]
 
 def get_nodes(puzzle_input):
-    print(puzzle_input)
     children = puzzle_input[0]
+    meta = puzzle_input[1]
+    i = 0
+    offset = 0
+    running_total = 0
+    for branch in range(children):
+        i += 2
+        result = get_nodes(puzzle_input[i:])
+        running_total += result[0]
+        i += result[1]
+        offset += result[1] + 2
+    i += 2
+    for meta in range(meta):
+        running_total += puzzle_input[i]
+        offset += 1
+        i += 1
+    return running_total, offset
 
-    if children == 0:
-        return (None, puzzle_input[2: 2 + puzzle_input[1]]), puzzle_input[2 + puzzle_input[1]:]
-    else:
-        if puzzle_input[1] != 0:
-            meta = puzzle_input[- puzzle_input[1]:]
-            puzzle_input = puzzle_input[2:- len(meta)]
-        else:
-            meta = [0]
-            puzzle_input = puzzle_input[2:]
-
-    out = [], meta
-    for i in range(children):
-        result = get_nodes(puzzle_input)
-        out[0].append(result[0])
-        puzzle_input = result[1]
-    return out, puzzle_input
 
 
 def solve(puzzle_input):
-    sys.setrecursionlimit(2000000)
     root = get_nodes(puzzle_input)[0]
     print(root)
-    return sum_metas(root)
 
 
 def sum_metas(node):
