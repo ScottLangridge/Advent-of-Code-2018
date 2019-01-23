@@ -16,43 +16,22 @@ def get_input(filepath='input.txt'):
     return out
 
 
-# Node = [[Children], [Metadata]]
-
-def get_nodes(puzzle_input):
-    children = puzzle_input[0]
-    meta = puzzle_input[1]
+def get_meta_sum(puzzle_input):
     i = 0
-    offset = 0
     running_total = 0
-    for branch in range(children):
+    for branch in range(puzzle_input[0]):
         i += 2
-        result = get_nodes(puzzle_input[i:])
+        result = get_meta_sum(puzzle_input[i:])
         running_total += result[0]
         i += result[1]
-        offset += result[1] + 2
-    i += 2
-    for meta in range(meta):
-        running_total += puzzle_input[i]
-        offset += 1
+    for meta in range(puzzle_input[1]):
+        running_total += puzzle_input[i + 2]
         i += 1
-    return running_total, offset
-
+    return running_total, i
 
 
 def solve(puzzle_input):
-    root = get_nodes(puzzle_input)[0]
-    print(root)
-
-
-def sum_metas(node):
-    running_sum = sum(node[1])
-    if node[0] is None:
-        return running_sum
-    else:
-        for i in node[0]:
-            running_sum += sum_metas(i)
-        return running_sum
-
+    return get_meta_sum(puzzle_input)[0]
 
 
 start_time = time.time()
