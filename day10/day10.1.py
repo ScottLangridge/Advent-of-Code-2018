@@ -13,9 +13,12 @@ def get_input(filepath='input.txt'):
         raw = f.readlines()
 
     for line in raw:
-        pos = line[10:16].replace(' ', '').split(',')
-        vel = line[-8:-2].replace(' ', '').split(',')
-        out.append([[int(pos[0]), int(pos[1])], [int(vel[0]), int(vel[1])]])
+        line = line.replace(' ', '').replace('position=<', '').replace('velocity=<', ',').replace('>', '')
+        line = line.split(',')
+
+        pos = [int(line[0]), int(line[1])]
+        vel = [int(line[2]), int(line[3])]
+        out.append([pos, vel])
     return out
 
 
@@ -23,7 +26,7 @@ def solve(puzzle_input):
     while True:
         print_sky(puzzle_input)
         puzzle_input = run_tick(puzzle_input)
-        input('Hit enter for more.')
+        input('Hit enter to step.')
 
 
 def run_tick(stars):
