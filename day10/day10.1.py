@@ -1,4 +1,5 @@
 import time
+from copy import deepcopy
 
 
 def main():
@@ -23,17 +24,37 @@ def get_input(filepath='input.txt'):
 
 
 def solve(puzzle_input):
+    curr = puzzle_input
     while True:
-        print('Printing Sky')
-        print_sky(puzzle_input)
-        print('Simulating Movement')
-        puzzle_input = run_tick(puzzle_input)
-        input('Hit enter to step.')
+        prev = deepcopy(curr)
+        curr = run_tick(curr)
+        prev_size = get_size(prev)
+        curr_size = get_size(curr)
+
+        if curr_size[0] >= prev_size[0] and curr_size[1] >= prev_size[1]:
+            print_sky(prev)
+            return
+
+
+def get_size(stars):
+    min_x = max_x = stars[0][0][0]
+    min_y = max_y = stars[0][0][1]
+
+    for star in stars[1:]:
+        if star[0][0] < min_x:
+            min_x = star[0][0]
+        elif star[0][0] > max_x:
+            max_x = star[0][0]
+        if star[0][1] < min_y:
+            min_y = star[0][1]
+        elif star[0][1] > max_y:
+            max_y = star[0][1]
+
+    return [max_x - min_x, max_y - min_y]
 
 
 def run_tick(stars):
     for i in range(len(stars)):
-        print('  star:', i, 'of', len(stars))
         for j in range(2):
             stars[i][0][j] += stars[i][1][j]
 
@@ -42,7 +63,6 @@ def run_tick(stars):
 
 def print_sky(stars):
     # Normalise start positions so that grid can start at (0,0)
-    print('  Tidying Data')
     min_x = max_x = stars[0][0][0]
     min_y = max_y = stars[0][0][1]
 
@@ -64,18 +84,14 @@ def print_sky(stars):
         stars[i][0][1] += -min_y
 
     # Generate list for sky image
-    print('  Creating Sky Map')
     star_map = []
     for y in range(max_y + 1):
-        print('  row:', y, 'of', max_y + 1)
         star_map.append([])
         for x in range(max_x + 1):
             star_map[-1].append('.')
 
     count = 0
-    num = len(stars)
     for star in stars:
-        print('Placing Star:', count, 'of', num)
         star_map[star[0][1]][star[0][0]] = '#'
         count += 1
 
